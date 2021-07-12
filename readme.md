@@ -1,4 +1,4 @@
-# nngpp
+# nngpp (Evan's fork)
 
 C++ wrapper around the [nanomsg NNG](https://github.com/nanomsg/nng) API
 
@@ -13,6 +13,11 @@ What's nanomsg? In a nutshell it's a spiritual successor to ZeroMQ, and NNG is i
 * Non-owning views, e.g. `nng::socket_view` and `nng::msg_view`
 * Failure is communicated with exceptions instead of error codes
 * Compatible with C++11 but uses C++17 features when available
+
+Additional features in Evan's fork:
+
+* `nng::exception` extends `std::system_error` and translation to `std::errc`
+* `nng::msgbuf` and `nng::iomsgstream` for C++-flavored message manipulation
 
 ## Hello world
 
