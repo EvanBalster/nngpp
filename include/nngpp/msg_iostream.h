@@ -26,7 +26,7 @@ namespace nng {
 		~basic_msgbuf() noexcept    {close();}
 		
 		bool          is_open() const noexcept                             {return _msg;}
-		void          close() noexcept                                     {if (is_open()) *this = basic_msgbuf();}
+		void          close() noexcept                                     {sync(); if (is_open()) *this = basic_msgbuf();}
 
 		/*
 			Open a message for reading/writing.
@@ -210,7 +210,7 @@ namespace nng {
 		bool _is_reading() const noexcept    {return _mode & std::ios::in;}
 
 		// Behaves like the non-standard microsoft implementation of setp
-		void setp_(char* new_pbase, char *new_pptr, char* new_epptr)
+		void setp_(char_type* new_pbase, char_type *new_pptr, char_type* new_epptr)
 		{
 			this->basic_streambuf::setp(new_pbase, new_epptr);
 			this->pbump(int(new_pptr - new_pbase));
