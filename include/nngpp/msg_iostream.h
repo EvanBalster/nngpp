@@ -91,7 +91,7 @@ namespace nng {
 
 			// Stop at end of data
 			char_type *end = _g_end(), *pos = this->gptr();
-			if (pos + n < end) n = end-pos;
+			if (pos + n > end) n = end-pos;
 
 			// Read data from message
 			std::memcpy((void*) s, (void*) pos, sizeof(char_type)*n);
