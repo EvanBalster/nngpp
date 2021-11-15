@@ -26,7 +26,7 @@ namespace nng {
 		~basic_msgbuf() noexcept    {close();}
 		
 		bool          is_open() const noexcept                             {return _msg;}
-		void          close() noexcept                                     {sync(); if (is_open()) *this = basic_msgbuf();}
+		void          close() noexcept                                     {if (is_open()) {_sync_length(); *this = basic_msgbuf();}}
 
 		/*
 			Open a message for reading/writing.
@@ -150,11 +150,12 @@ namespace nng {
 			if (!_is_writing()) return traits_type::eof();
 
 			// Put character without advancing position.
+			_sync_length();
 			auto pptr = _prepare_write(1);
 			if (!pptr) return traits_type::eof();
 			*pptr = traits_type::to_char_type(c);
 
-			// But wait, we actually advance?!?
+			// But wait, we actually advance?!?  C++ spec is fuzzy about this.
 			this->pbump(1);
 			return c;
 		}
