@@ -195,7 +195,7 @@ namespace nng {
 
 	protected:
 		nng_msg *_msg;
-		openmode _mode = 0;
+		openmode _mode = {};
 		size_t   _byte_off = 0, _byte_max = ~size_t(0);
 
 		size_t     _sizeb(size_t n) const    {n -= _byte_off; return (n > _byte_max) ? _byte_max : n;}
@@ -319,7 +319,7 @@ namespace nng {
 
 
 	template<class Elem, class Traits = std::char_traits<Elem>>
-	using basic_msgstream = basic_msgstream_<Elem, Traits, std::basic_iostream<Elem, Traits>, std::ios::in|std::ios::out, 0>;
+	using basic_msgstream = basic_msgstream_<Elem, Traits, std::basic_iostream<Elem, Traits>, std::ios::in|std::ios::out, std::ios::openmode{}>;
 	template<class Elem, class Traits = std::char_traits<Elem>>
 	using basic_imsgstream = basic_msgstream_<Elem, Traits, std::basic_istream<Elem, Traits>, std::ios::in,  std::ios::in>;
 	template<class Elem, class Traits = std::char_traits<Elem>>
